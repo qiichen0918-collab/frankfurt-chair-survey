@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frankfurt Office Chair Feedback Survey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #2d3436;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .header .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+        .header p {
+            font-size: 15px;
+            color: #636e72;
+            line-height: 1.6;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #636e72;
+        }
+        .progress-bar {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0984e3, #6c5ce7);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 36px 32px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #0984e3;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .form-group .hint {
+            display: block;
+            font-size: 13px;
+            color: #b2bec3;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        /* Inputs */
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            background: #f8f9fa;
+            color: #2d3436;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0984e3;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(9, 132, 227, 0.08);
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        /* Radio & Checkbox Group */
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #f8f9fa;
+        }
+        .option-item:hover {
+            border-color: #74b9ff;
+            background: #f0f7ff;
+        }
+        .option-item input[type="radio"] {
+            accent-color: #0984e3;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .option-item input[type="checkbox"] {
+            accent-color: #0984e3;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .option-item.selected {
+            border-color: #0984e3;
+            background: #f0f7ff;
+        }
+
+        /* Rating Stars */
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .stars {
+            display: flex;
+            gap: 6px;
+            flex-direction: row-reverse;
+        }
+        .stars input {
+            display: none;
+        }
+        .stars label {
+            font-size: 32px;
+            color: #dfe6e9;
+            cursor: pointer;
+            transition: color 0.15s ease, transform 0.15s ease;
+            user-select: none;
+        }
+        .stars label:hover,
+        .stars label:hover ~ label,
+        .stars input:checked ~ label {
+            color: #fdcb6e;
+        }
+        .stars label:hover {
+            transform: scale(1.2);
+        }
+        .rating-label {
+            font-size: 13px;
+            color: #b2bec3;
+            min-width: 70px;
+        }
+
+        /* Slider-like range for severity */
+        .severity-scale {
+            display: flex;
+            gap: 4px;
+        }
+        .severity-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            background: #f8f9fa;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #636e72;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .severity-btn:hover {
+            border-color: #0984e3;
+            background: #f0f7ff;
+        }
+        .severity-btn.active {
+            border-color: #0984e3;
+            background: #0984e3;
+            color: #fff;
+        }
+        .severity-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #b2bec3;
+            margin-top: 6px;
+            padding: 0 4px;
+        }
+
+        /* Conditional block */
+        .conditional-block {
+            display: none;
+            margin-top: 16px;
+            padding: 20px;
+            background: #fff9f0;
+            border-radius: 12px;
+            border-left: 4px solid #e17055;
+        }
+        .conditional-block.visible {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Button */
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(9, 132, 227, 0.35);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Success State */
+        .success-card {
+            display: none;
+            text-align: center;
+            padding: 60px 32px;
+        }
+        .success-card.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .success-card .check {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        .success-card h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #1a1a2e;
+        }
+        .success-card p {
+            color: #636e72;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .form-card.hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .form-card {
+                padding: 24px 20px;
+            }
+            .header h1 {
+                font-size: 22px;
+            }
+            .severity-scale {
+                flex-wrap: wrap;
+            }
+            .severity-btn {
+                flex: 0 0 calc(20% - 4px);
+                font-size: 11px;
+                padding: 10px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="icon">🪑</div>
+            <h1>Frankfurt Office Chair Feedback</h1>
+            <p>Help us make your workspace better. Your honest input — down to the smallest detail — is what we need.</p>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span>Completion</span>
+                <span id="progressText">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-card" id="formCard">
+            <form id="surveyForm">
+                <!-- Section 1: Work Pattern -->
+                <div class="section-title">📋 Your Work Pattern</div>
+
+                <div class="form-group">
+                    <label>How many days per week do you typically work from the Frankfurt office?</label>
+                    <span class="hint">An estimate is fine — just give us a rough picture.</span>
+                    <select id="officeDays" name="officeDays" required>
+                        <option value="" disabled selected>Select frequency...</option>
+                        <option value="5">5 days — I'm in the office every working day</option>
+                        <option value="4">4 days</option>
+                        <option value="3">3 days</option>
+                        <option value="2">2 days</option>
+                        <option value="1">1 day</option>
+                        <option value="occasional">Occasionally / A few times a month</option>
+                        <option value="rarely">Rarely / Almost never</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>On a typical office day, roughly how many hours do you spend sitting in the chair?</label>
+                    <span class="hint">Think about uninterrupted sitting time vs. total time at your desk.</span>
+                    <select id="dailyHours" name="dailyHours" required>
+                        <option value="" disabled selected>Select range...</option>
+                        <option value="9+">9+ hours — practically the whole day</option>
+                        <option value="7-9">7–9 hours</option>
+                        <option value="5-7">5–7 hours</option>
+                        <option value="3-5">3–5 hours</option>
+                        <option value="<3">Less than 3 hours</option>
+                    </select>
+                </div>
+
+                <!-- Section 2: Overall Experience -->
+                <div class="section-title">⭐ Overall Sitting Experience</div>
+
+                <div class="form-group">
+                    <label>How would you rate your overall comfort when using the office chair?</label>
+                    <div class="rating-row">
+                        <div class="stars" id="comfortRating">
+                            <input type="radio" name="comfort" value="5" id="star5">
+                            <label for="star5">★</label>
+                            <input type="radio" name="comfort" value="4" id="star4">
+                            <label for="star4">★</label>
+                            <input type="radio" name="comfort" value="3" id="star3">
+                            <label for="star3">★</label>
+                            <input type="radio" name="comfort" value="2" id="star2">
+                            <label for="star2">★</label>
+                            <input type="radio" name="comfort" value="1" id="star1">
+                            <label for="star1">★</label>
+                        </div>
+                        <span class="rating-label" id="comfortLabel">Tap a star</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Compared to your home-office chair (if you have one), how does the Frankfurt office chair compare?</label>
+                    <div class="option-group" id="compareHome">
+                        <label class="option-item">
+                            <input type="radio" name="compareHome" value="much-better" required> Much better
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="compareHome" value="slightly-better"> Slightly better
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="compareHome" value="similar"> About the same
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="compareHome" value="slightly-worse"> Slightly worse
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="compareHome" value="much-worse"> Much worse
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="compareHome" value="no-home-chair"> I don't use a home-office chair
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Have you experienced any physical discomfort that you believe is related to the office chair?</label>
+                    <span class="hint">Select all areas where you've noticed issues.</span>
+                    <div class="option-group" id="discomfortAreas">
+                        <label class="option-item">
+                            <input type="checkbox" name="discomfort" value="none"> No discomfort at all
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="discomfort" value="lower-back"> Lower back
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="discomfort" value="upper-back"> Upper back / Shoulders
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="discomfort" value="neck"> Neck
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="discomfort" value="hips"> Hips / Tailbone
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="discomfort" value="thighs"> Thighs / Legs
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="discomfort" value="wrists-arms"> Wrists / Arms (from armrest positioning)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Section 3: Detailed Component Feedback -->
+                <div class="section-title">🔍 Chair Component Breakdown</div>
+                <p style="font-size: 13px; color: #b2bec3; margin-bottom: 20px; margin-top: -12px;">
+                    This is where we need your sharpest observations. Please go into detail — the more specific, the better.
+                </p>
+
+                <!-- Back Support -->
+                <div class="form-group">
+                    <label>🖐 Back Support & Lumbar Area</label>
+                    <span class="hint">How well does the chair support your spine? Is the lumbar support effective? Can you adjust it to your liking?</span>
+                    <textarea name="backSupport" rows="3" placeholder="E.g., The lumbar support feels too low even at its highest setting, or the backrest doesn't lock firmly and tends to recline on its own..."></textarea>
+                </div>
+
+                <!-- Seat Cushion -->
+                <div class="form-group">
+                    <label>💺 Seat Cushion</label>
+                    <span class="hint">Think about firmness, thickness, breathability, and whether the cushion has lost its shape over time.</span>
+                    <textarea name="seatCushion" rows="3" placeholder="E.g., The cushion feels flat after about 3 hours — I can feel the base frame through the foam, especially on the left side..."></textarea>
+                </div>
+
+                <!-- Height Adjustment -->
+                <div class="form-group">
+                    <label>↕️ Height Adjustment Mechanism</label>
+                    <span class="hint">Does the chair go high/low enough for your desk setup? Is the mechanism smooth or sticky?</span>
+                    <textarea name="heightAdjust" rows="3" placeholder="E.g., Even at max height my elbows are below desk level, or the cylinder drops slightly throughout the day..."></textarea>
+                </div>
+
+                <!-- Armrests -->
+                <div class="form-group">
+                    <label>💪 Armrests</label>
+                    <span class="hint">Can you adjust height, width, angle, or depth? Are the pads comfortable or worn out?</span>
+                    <textarea name="armrests" rows="3" placeholder="E.g., The armrests don't go low enough to slide under the desk, or the padding has hardened and cracks are visible..."></textarea>
+                </div>
+
+                <!-- Wheels & Mobility -->
+                <div class="form-group">
+                    <label>🛞 Wheels & Mobility</label>
+                    <span class="hint">Do they roll smoothly on the office floor? Any squeaking, sticking, or resistance?</span>
+                    <textarea name="wheels" rows="3" placeholder="E.g., The wheels get stuck on carpet seams, or one of them squeaks loudly every time I move..."></textarea>
+                </div>
+
+                <!-- Overall Condition -->
+                <div class="form-group">
+                    <label>🔧 Overall Condition & Wear</label>
+                    <span class="hint">Any visible damage, wobbling, missing parts, stains, or signs of age?</span>
+                    <textarea name="overallCondition" rows="3" placeholder="E.g., The gas cylinder makes a hissing sound, the armrest pad is torn on the right side, or the chair wobbles when I lean back..."></textarea>
+                </div>
+
+                <!-- Severity Assessment -->
+                <div class="form-group">
+                    <label>If you've flagged issues above — how severe is the overall problem?</label>
+                    <span class="hint">Be honest. This helps us prioritise.</span>
+                    <input type="hidden" name="severity" id="severityInput" value="">
+                    <div class="severity-scale" id="severityScale">
+                        <div class="severity-btn" data-value="1">1</div>
+                        <div class="severity-btn" data-value="2">2</div>
+                        <div class="severity-btn" data-value="3">3</div>
+                        <div class="severity-btn" data-value="4">4</div>
+                        <div class="severity-btn" data-value="5">5</div>
+                    </div>
+                    <div class="severity-labels">
+                        <span>Minor niggles</span>
+                        <span>Barely usable</span>
+                    </div>
+                </div>
+
+                <!-- Section 4: Additional -->
+                <div class="section-title">💡 One Last Thing</div>
+
+                <div class="form-group">
+                    <label>Is there anything else you'd like us to know — a suggestion, a specific chair model you prefer, or a feature you wish the current chairs had?</label>
+                    <textarea name="additional" rows="3" placeholder="Anything at all — no detail is too small..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Your name <span style="font-weight:400;color:#b2bec3;">(optional)</span></label>
+                    <span class="hint">Only if you're comfortable sharing. Helps us follow up if needed.</span>
+                    <input type="text" name="name" placeholder="Leave blank to stay anonymous">
+                </div>
+
+                <button type="submit" class="btn-primary">Submit Feedback</button>
+            </form>
+        </div>
+
+        <!-- Success -->
+        <div class="form-card success-card" id="successCard">
+            <div class="check">✅</div>
+            <h2>Thank you for your feedback!</h2>
+            <p>Your detailed input will directly help us understand what's working and what needs attention. We'll review every response carefully and share an update on next steps.</p>
+        </div>
+    </div>
+
+    <script>
+        // ===== Star Rating =====
+        const starInputs = document.querySelectorAll('#comfortRating input');
+        const comfortLabel = document.getElementById('comfortLabel');
+        const ratingLabels = ['Terrible', 'Poor', 'Okay', 'Good', 'Excellent'];
+
+        starInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                const val = parseInt(input.value);
+                comfortLabel.textContent = ratingLabels[val - 1];
+            });
+        });
+
+        // ===== Radio / Checkbox visual feedback =====
+        document.querySelectorAll('.option-item input').forEach(input => {
+            input.addEventListener('change', function() {
+                const parent = this.closest('.option-item');
+                const group = parent.parentElement;
+                // For radio groups, remove selected from all siblings
+                if (this.type === 'radio') {
+                    group.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
+                }
+                if (this.checked) {
+                    parent.classList.add('selected');
+                } else {
+                    parent.classList.remove('selected');
+                }
+            });
+        });
+
+        // ===== "No discomfort" mutual exclusion =====
+        const discomfortCheckboxes = document.querySelectorAll('#discomfortAreas input[name="discomfort"]');
+        const noneCheckbox = discomfortCheckboxes[0]; // "No discomfort at all"
+
+        discomfortCheckboxes.forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (this === noneCheckbox && this.checked) {
+                    discomfortCheckboxes.forEach((other, i) => {
+                        if (i > 0) other.checked = false;
+                        other.closest('.option-item').classList.remove('selected');
+                    });
+                    this.closest('.option-item').classList.add('selected');
+                } else if (this !== noneCheckbox && this.checked) {
+                    noneCheckbox.checked = false;
+                    noneCheckbox.closest('.option-item').classList.remove('selected');
+                    this.closest('.option-item').classList.add('selected');
+                }
+                if (!this.checked) {
+                    this.closest('.option-item').classList.remove('selected');
+                }
+            });
+        });
+
+        // ===== Severity Scale =====
+        const severityBtns = document.querySelectorAll('#severityScale .severity-btn');
+        const severityInput = document.getElementById('severityInput');
+        severityBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                severityBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                severityInput.value = btn.dataset.value;
+            });
+        });
+
+        // ===== Progress =====
+        function updateProgress() {
+            const total = document.querySelectorAll('#surveyForm .form-group').length + 1; // +1 for severity
+            let filled = 0;
+            const form = document.getElementById('surveyForm');
+
+            // Count textareas & inputs
+            form.querySelectorAll('textarea').forEach(ta => { if (ta.value.trim()) filled++; });
+            form.querySelectorAll('input[type="text"]').forEach(inp => { if (inp.value.trim()) filled++; });
+            // Selects
+            form.querySelectorAll('select').forEach(sel => { if (sel.value) filled++; });
+            // Radios — comfort
+            if (form.querySelector('input[name="comfort"]:checked')) filled++;
+            // Radio — compareHome
+            if (form.querySelector('input[name="compareHome"]:checked')) filled++;
+            // Checkboxes — at least one
+            if (form.querySelector('input[name="discomfort"]:checked')) filled++;
+            // Severity
+            if (severityInput.value) filled++;
+
+            const pct = Math.min(100, Math.round((filled / 14) * 100));
+            document.getElementById('progressFill').style.width = pct + '%';
+            document.getElementById('progressText').textContent = pct + '%';
+        }
+
+        document.getElementById('surveyForm').addEventListener('input', updateProgress);
+        document.getElementById('surveyForm').addEventListener('change', updateProgress);
+
+        // ===== Submit =====
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhw3Vb0poT4qfNinfAkXRqrB1rHlA19Tjk-84w9fsieN77S7huiDsxTZzNuGchTaxbFQ/exec';
+
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((val, key) => {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(val);
+                    } else {
+                        data[key] = [data[key], val];
+                    }
+                } else {
+                    data[key] = val;
+                }
+            });
+
+            // Collect discomfort checkboxes
+            const discomfortVals = [];
+            document.querySelectorAll('input[name="discomfort"]:checked').forEach(cb => discomfortVals.push(cb.value));
+            data.discomfort = discomfortVals;
+
+            // Collect comfort rating
+            const comfortRadio = document.querySelector('input[name="comfort"]:checked');
+            data.comfort = comfortRadio ? comfortRadio.value : '';
+
+            // Send to Google Sheets
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                // Show success
+                document.getElementById('formCard').classList.add('hidden');
+                document.querySelector('.progress-section').style.display = 'none';
+                document.getElementById('successCard').classList.add('visible');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            })
+            .catch(() => {
+                alert('Something went wrong. Please try again or let us know directly.');
+            });
+        });
+
+        // ===== Option item click =====
+        document.querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                const input = this.querySelector('input');
+                if (e.target !== input) {
+                    input.checked = input.type === 'checkbox' ? !input.checked : true;
+                    input.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
